@@ -117,6 +117,7 @@ namespace wms
             }
 
             this.remplirDGVSecteurLigne(param2.GetLesSecteursEnLigne());
+
         }
         private void remplirDGVSecteurLigne(string param)
         {

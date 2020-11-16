@@ -36,7 +36,7 @@ namespace wms.Modeles
             //return this._lesSecteurs[this._lesSecteurs.Count - 1];
             //return this._lesSecteurs.Last();
             Secteur param = null;
-            foreach(Secteur unSecteur  in this._lesSecteurs)
+            foreach (Secteur unSecteur in this._lesSecteurs)
             {
                 param = unSecteur;
             }
@@ -45,7 +45,7 @@ namespace wms.Modeles
         public List<Secteur> GetAllSecteurs()
         {
             List<Secteur> uneListe = new List<Secteur>();
-            foreach(Secteur unSecteur in this._lesSecteurs)
+            foreach (Secteur unSecteur in this._lesSecteurs)
             {
                 uneListe.Add(unSecteur);
             }
@@ -68,8 +68,66 @@ namespace wms.Modeles
                 param += unSecteur.IdSecteur.ToString();
                 param += ",";
             }
-            return param.Remove(param.Count()-1,1);
+            return param.Remove(param.Count() - 1, 1);
         }
-        #endregion
-    }
+
+        // methode qui me renvoie 
+        //le libelle de la zone de la premiere alveole
+
+        /// <summary>
+        /// methode qui me renvoie 
+        ///le libelle de la zone de la premiere alveole  du deuxieme 
+        ///palettier du  deuxieme secteur
+        /// </summary>
+        /// <param name="param">le secteur</param>
+        /// <param name="param2"> le palettier</param>
+        /// <param name="param3"> l'alveole</param>
+        /// <returns></returns>
+        public string GetZoneAlveole(int param, int param2, int param3)
+        {
+            string result = "";
+            int i = 0;
+            foreach (Secteur paramS in this.GetAllSecteurs())
+            {
+                if (i == param)
+                {
+                    i = 0;
+                    foreach (Palettier paramP in paramS.LesPalettiers)
+                    {
+                        if (i == param2)
+                        {
+                            i = 0;
+                            foreach (Alveole uneAlveole in paramP.LesAlveoles)
+                            {
+                                if (i == param3)
+                                {
+                                    result = uneAlveole.UneZone.LibelleZone;
+                                    break;
+                                }
+                                else
+                                {
+                                    i++;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            i++;
+                        }
+                    }
+                }
+                else
+                {
+                    i++;
+                }
+            }
+
+            return result;
+        }
+        public string GetZoneAlveole1ligne(int param, int param2, int param3)
+        {
+            return this._lesSecteurs[param].LesPalettiers[param2].LesAlveoles[param3].UneZone.LibelleZone;
+        }
+            #endregion
+        }
 }
